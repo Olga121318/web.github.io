@@ -114,15 +114,15 @@ $(function () {
                 row.append(data);
 
                 data = $('.table-data');
-                if (moreSettings.checked) {
+                if (moreSettings.prop("checked")) {
                     data.css({
                         'padding': tableDataPadding.val() + 'px',
                         'backgroundColor': tableDataColor.val(),
                         'color': tableFontColor.val(),
-                        'border': tableDataWidth.val() + 'px' + dataBorderType.val() + dataBorderColor.val()
+                        'border': `${tableDataWidth.val() + 'px'} ${dataBorderType.val()} ${dataBorderColor.val()}`
                     });
 
-                    data.addClass = tableFontSize.val();
+                    data.addClass(tableFontSize.val());
                 }
             }
         }
