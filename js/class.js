@@ -61,8 +61,8 @@ class ColoredRectangle extends Rectangle {
         div.style.width = this.width + 'px';
         div.style.height = this.height + 'px';
         div.textContent = this.text;
-        div.style.backgroundColor = '#'+ this.bgColor;
-        
+        div.style.backgroundColor = '#' + this.bgColor;
+
         div.style.filter = `hue-rotate(180deg)`;
 
         return div;
@@ -79,7 +79,7 @@ class Circle {
         this.bgColor = bgColor;
         this.borderColor = this.bgColor;
 
-        this.getDiameter = function() {
+        this.getDiameter = function () {
             return this.radius * 2;
         }
     }
@@ -104,12 +104,26 @@ class Circle {
         div.style.backgroundColor = this.bgColor;
         div.style.borderWidth = '5px';
         div.style.borderStyle = 'solid';
-        div.style.borderColor = '#00f0f0';
+        div.style.borderColor = colorHsl(this.borderColor, -10);
 
         div.style.borderRadius = '50%';
 
         return div;
     }
+}
+
+function colorHsl(color, changeLightness) {
+    let hsl;
+    let colorArray = [];
+    color = color.substring(4, color.length - 1);
+
+    colorArray = color.split(", ");
+
+    colorArray[2] = parseInt(colorArray[2]) + changeLightness;
+
+    hsl = `hsl(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]}%)`;
+
+    return hsl;
 }
 
 let countCircles = 3;
@@ -118,14 +132,15 @@ let circle;
 let propCircle = {
     name: ['A', 'B', 'C'],
     radius: [100, 250, 150],
-    bgColor: ['#ff0000', '#00ff00', '#0000ff']
+    bgColor: ['hsl(45, 100%, 50%)', 'hsl(200, 100%, 50%)', 'hsl(330, 100%, 50%)']
 };
 
 for (let i = countCircles - 1; i >= 0; i--) {
-    
+
     circle = new Circle(propCircle.name[i],
-                        propCircle.radius[i],
-                        propCircle.bgColor[i]);
+        propCircle.radius[i],
+        propCircle.bgColor[i]);
 
     document.body.prepend(circle.createDivCircle());
 }
+
