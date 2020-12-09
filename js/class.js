@@ -73,6 +73,18 @@ let coloredRect1 = new ColoredRectangle(width, height, color, "Привет!")
 document.body.prepend(coloredRect1.createDiv());
 
 class Circle {
+
+    static SMALL_SHADOW = 'small';
+    static NORMAL_SHADOW = 'normal';
+    static BIG_SHADOW = 'big';
+
+    #nameValue;
+    radius;
+    bgColor;
+
+    #masShadows = [Circle.SMALL_SHADOW, Circle.NORMAL_SHADOW, Circle.BIG_SHADOW];
+    #shadow;
+
     constructor(name, radius, bgColor) {
         this.name = name;
         this.radius = radius;
@@ -84,6 +96,22 @@ class Circle {
         }
     }
 
+    get name(){
+
+        return this.#nameValue;
+    }
+
+    set name(newName) {
+
+        if(newName !== '') {
+            this.#nameValue = newName;
+        }
+        else {
+            alert('Имя не может быть пустым');
+        }
+
+    }
+
     calcArea() {
         return Math.round(Math.PI * this.radius ** 2);
     }
@@ -92,9 +120,18 @@ class Circle {
         return Math.round(Math.PI * this.getDiameter());
     }
 
-    changeName(newName) {
-        this.name = newName;
+    
+
+    getShadow(){
+        return this.#shadow;
+
     }
+
+    setShadow(index){
+
+        this.#shadow = this.#masShadows[index];
+
+    }   
 
     createDivCircle() {
         let div = document.createElement('div');
@@ -143,4 +180,19 @@ for (let i = countCircles - 1; i >= 0; i--) {
 
     document.body.prepend(circle.createDivCircle());
 }
+
+console.log(circle.name);
+
+circle.name = "Окружность";
+
+console.log(circle.name);
+
+// console.log(`Новое имя: ${circle.name}`);
+
+// circle.setShadow(0);
+// console.log(circle.getShadow());
+
+// console.log(Circle.SMALL_SHADOW);
+
+
 
